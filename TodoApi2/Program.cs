@@ -2,7 +2,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using TodoApi2;
 using TodoApi2.Data;
+using TodoApi2.Interfaces;
 using TodoApi2.Models;
+using TodoApi2.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,7 +12,9 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddTransient<Seed>();
-builder.Services.AddDbContext<TodoContext>(opt => opt.UseInMemoryDatabase("Todolist"));
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+builder.Services.AddScoped<IPokemonRepository, PokemonRepository>();
+//builder.Services.AddDbContext<TodoContext>(opt => opt.UseInMemoryDatabase("Todolist"));
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
